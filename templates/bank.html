@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        section {
+            padding-left: 40%;
+            width: 20%;
+        }
+
+        .top {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        a {
+            padding: 10px;
+            width: 50%;
+        }
+
+        input {
+            width: 100%;
+        }
+    </style>
+    <script>
+        if (localStorage.getItem("check") != {{ id }}) {
+            window.location.replace("/")
+        }
+    </script>
+</head>
+
+<body>
+    <a onclick="logOut()">Log Out</a>
+    <section>
+        <h1 class="w3-head">welcome {{name}}</h1>
+        <p class="w3-container">Balance: {{balance}}</p>
+        <p style="font-size: small;">Amount to Deposit or Withdraw</p>
+        <div class="top">
+            <input id="amount">
+            <div class="bottom">
+                <a onclick="deposit()" class="w3-button w3-blue">Deposit</a>
+                <a onclick="withdraw()" class="w3-button w3-blue">Withdraw</a>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    function deposit() {
+        var amount = document.getElementById("amount").value;
+        var url = window.location.pathname + "/deposit/" + amount;
+        window.location.replace(url);
+    }
+
+    function withdraw() {
+        var amount = document.getElementById("amount").value;
+        var url = window.location.pathname + "/withdraw/" + amount;
+        window.location.replace(url);
+    }
+    function logOut() {
+        localStorage.setItem("check", null)
+        window.location.replace("/")
+    }
+</script>
+
+</html>

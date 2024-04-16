@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form" action="/submit" method="POST" onsubmit="check()">
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id" required>
+        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script>
+    function check() {
+        localStorage.setItem("check", document.getElementById("id").value)
+    }
+
+</script>
+
+</html>

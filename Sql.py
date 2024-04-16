@@ -1,17 +1,29 @@
-from mysql.connector import connection
+import mysql.connector
 import os
-conn = connection.MySQLConnection(
-    user='root', password=os.environ["PASSWORD"],
-    host='127.0.0.1',
-    database='accounts')
 
 
-def exucute(query_string):
-    cursor=conn.cursor()
+def execute(query_string):
+    conn = mysql.connector.connect(
+        user='root', password=os.environ["PASSWORD"],
+        host='127.0.0.1',
+        database='accounts')
+    cursor = conn.cursor()
     cursor.execute(query_string)
-    temp=[]
-    for user in cursor:
-        temp.append(user)
+    rows = []
+    for col in cursor:
+        rows.append(col)
     cursor.close()
     conn.close()
-    return temp
+    return rows
+
+
+def retreive(query_string):
+    conn = mysql.connector.connect(
+        user='root', password=os.environ["PASSWORD"],
+        host='127.0.0.1',
+        database='accounts')
+    cursor = conn.cursor()
+    cursor.execute(query_string)
+    conn.commit()
+    cursor.close()
+    conn.close()
