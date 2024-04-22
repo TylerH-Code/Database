@@ -21,7 +21,7 @@ def submit():
             # Return an error message and redirect back to the home page
             return "Invalid user<script>setTimeout(function() {window.location.replace('/');}, 1000);</script>"
     except Exception as e:
-        return "invalid choice"
+        return "invalid choice<script>setTimeout(function() {window.location.replace('/');}, 1000);</script>"
 @app.route("/<id>")
 def page(id):
     # Update the Bank module with the current user's information
@@ -57,10 +57,10 @@ def create_account():
     form_name = request.form.get("name")
     
     # Create a new user account with the provided name and a balance of 0
-    Users.create_user(form_name, 0)
+    user=Users.get_user(Users.create_user(form_name, 0))
     
     # Return a success message and redirect back to the home page
-    return "Account created successfully!<script>setTimeout(function() {window.location.replace('/');}, 1000);</script>"
+    return str(user.id)+" Is your ID Number \t<script>setTimeout(function() {window.location.replace('/');}, 5000);</script>"
 
 @app.route("/close_account", methods=['POST'])
 def close_account():

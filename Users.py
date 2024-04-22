@@ -34,11 +34,15 @@ class User:
             return True
         else:
             return False
-
+user_list=Sql.execute("SELECT * FROM data")
+new_list=[]
 
 # Retrieve the list of users from the SQL table
-user_list = Sql.execute("SELECT * FROM data")
-new_list = []
+def get():
+    global user_list
+    global new_list
+    user_list = Sql.execute("SELECT * FROM data")
+    new_list = []
 
 # Create User objects for each user in the list
 for user in user_list:
@@ -47,22 +51,36 @@ for user in user_list:
 
 # Function to get all users
 def get_users():
+    get()
     return new_list
 
 
 # Function to get a specific user by their ID
 def get_user(id):
-    for user in new_list:
-        if id == user.id:
-            print(user.id)
-            return user
+    user = Sql.execute(f"SELECT * FROM data WHERE id = {id}")
+    if user:
+        return User(user[0][0], user[0][1], user[0][2])
+    else:
+        return None
 
 
 # Function to create a new user
 def create_user(name, balance):
-    sql_query = f"INSERT INTO data (name, balance) VALUES ('{name}', {balance})"
-    Sql.retreive(sql_query)
-
+    # Check if user already exists
+    check_query = f"SELECT id FROM data WHERE name = '{name}'"
+    existing_user = Sql.execute(check_query)
+    if existing_user:
+        return existing_user[0][0]  # Return the existing user's ID
+    
+    # Insert new user
+    insert_query = f"INSERT INTO data (name, balance) VALUES ('{name}', {balance})"
+    Sql.retreive(insert_query)
+    
+    # Retrieve the new user's ID
+    select_query = f"SELECT id FROM data WHERE name = '{name}' AND balance = 0"
+    new_user = Sql.execute(select_query)
+    if new_user:
+        return new_user[0][0]
 
 # Function to delete a user
 def close_user(user_id):
