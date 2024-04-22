@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <style>
@@ -33,6 +33,9 @@
         input {
             width: 100%;
         }
+        p{
+            margin-left:1%;
+        }
     </style>
     <script>
         if (localStorage.getItem("check") != {{ id }}) {
@@ -42,11 +45,12 @@
 </head>
 
 <body>
+    <p>ID:{{id}}</p>
     <a onclick="logOut()">Log Out</a>
     <section>
-        <h1 class="w3-head">welcome {{name}}</h1>
+        <h1 class="w3-head">Welcome {{name}}</h1>
         <p class="w3-container">Balance: {{balance}}</p>
-        <p style="font-size: small;">Amount to Deposit or Withdraw</p>
+        <p style="font-size: small;width: 200px;">Amount to Deposit or Withdraw</p>
         <div class="top">
             <input id="amount">
             <div class="bottom">
